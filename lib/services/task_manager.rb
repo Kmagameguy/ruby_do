@@ -10,8 +10,12 @@ class TaskManager
     print
   end
 
+  def all_tasks
+    @tasks
+  end
+
   def create!(content:)
-    all << Task.new(content: content)
+    all_tasks << Task.new(content: content)
     print
   end
 
@@ -24,7 +28,7 @@ class TaskManager
 
   def print
     entries =
-      all.map.with_index do |entry, index|
+      all_tasks.map.with_index do |entry, index|
         "#{index + 1}. #{entry}"
       end
 
@@ -37,14 +41,7 @@ class TaskManager
 
   private
 
-  def all
-    @tasks
-  end
-
   def load_tasks!
-    @tasks =
-      ["Trim the tree", "Take out the trash", "Pet the dog"].map do |str|
-        Task.new(content: str)
-      end
+    @tasks = Task.all
   end
 end
