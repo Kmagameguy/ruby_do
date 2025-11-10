@@ -10,7 +10,7 @@ require "minitest/autorun"
 require "minitest/spec"
 require "mocha/minitest"
 
-require_relative "../lib/to_do"
+require_relative "../app"
 
 Bundler.setup(:default, :test)
 
