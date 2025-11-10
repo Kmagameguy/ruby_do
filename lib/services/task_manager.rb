@@ -38,6 +38,11 @@ class TaskManager
   alias list print
   alias ls print
   alias tasks print
+  alias to_s print
+
+  def [](index)
+    all_tasks[index]
+  end
 
   private
 
