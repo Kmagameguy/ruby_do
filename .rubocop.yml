@@ -1,0 +1,54 @@
+plugins:
+  - rubocop-performance
+  - rubocop-minitest
+  - rubocop-sequel
+  - rubocop-rake
+
+AllCops:
+  TargetRubyVersion: 3.4
+  EnabledByDefault: true
+
+Bundler/GemComment:
+  Enabled: false
+
+Bundler/GemVersion:
+  Enabled: false
+
+Lint/ConstantResolution:
+  Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - lib/tasks/db.rake
+    - db/migrations/*
+
+Style/Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/Copyright:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/DocumentationMethod:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Exclude:
+    - bin/*
+    - Gemfile
+
+Style/Style/TopLevelMethodDefinition:
+  Exclude:
+    - bin/*
+
+Style/ImplicitRuntimeError:
+  Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+  SupportedStyles:
+    - single_quotes
+    - double_quotes
+  ConsistentQuotesInMultiline: false
