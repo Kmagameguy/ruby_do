@@ -22,10 +22,6 @@ class TaskManager
     print
   end
 
-  def all
-    @tasks
-  end
-
   def print
     entries =
       all.map.with_index do |entry, index|
@@ -37,8 +33,13 @@ class TaskManager
   alias show print
   alias list print
   alias ls print
+  alias tasks print
 
   private
+
+  def all
+    @tasks
+  end
 
   def load_tasks!
     @tasks =
