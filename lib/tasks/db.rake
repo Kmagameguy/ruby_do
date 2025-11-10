@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "../database"
+require_relative "../../app"
 
 namespace :db do
   desc "Run database migrations"
@@ -9,6 +9,13 @@ namespace :db do
     Sequel.extension(:migration)
     Sequel::Migrator.run(DB, "db/migrations")
     puts "Migrations complete!"
+  end
+
+  desc "Seed the database"
+  task :seed do
+    puts "Seeding the database tables..."
+    Dir[File.join(__dir__, "..", "..", "db", "seeds", "*.rb")].each { |file| load file }
+    puts "Seed complete!"
   end
 
   desc "Create a new migration"
