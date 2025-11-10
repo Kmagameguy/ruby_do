@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require "bundler"
-Bundler.require :test
+Bundler.require(:test)
 
 require "fileutils"
 require "json"
@@ -13,10 +15,9 @@ require_relative "../lib/to_do"
 Bundler.setup(:default, :test)
 
 class ::Minitest::Test
-  extend Minitest::Spec::DSL
+  extend ::Minitest::Spec::DSL
 
   class << self
     alias context describe
   end
 end
-

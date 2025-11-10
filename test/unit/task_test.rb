@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module ToDo
@@ -7,18 +9,18 @@ module ToDo
     let(:subject) { ::ToDo::Task }
 
     before { @task = subject.new(content: content) }
-    
+
     describe ".initialize" do
       it "creates a new task with valid arguments" do
-        assert @task.is_a?(::ToDo::Task)
+        assert_kind_of(::Task, @task)
       end
 
       it "has a created_at date" do
-        refute_nil @task.instance_variable_get("@created_at")
+        refute_nil @task.instance_variable_get(:@created_at)
       end
 
       it "does not have a completed_at date" do
-        assert_nil @task.instance_variable_get("@completed_at")
+        assert_nil @task.instance_variable_get(:@completed_at)
       end
     end
 
@@ -28,7 +30,7 @@ module ToDo
       before { @task.instance_variable_set(:@created_at, created_at) }
 
       it "humanizes the date by default" do
-        assert_equal created_at.strftime(humanized_date_pattern), @task.created_at    
+        assert_equal created_at.strftime(humanized_date_pattern), @task.created_at
       end
 
       it "can return the raw date" do
@@ -74,7 +76,7 @@ module ToDo
     describe "#completed?" do
       it "returns true if a completed_at timestamp is present" do
         @task.mark_complete!
-        
+
         assert_predicate(@task, :completed?)
       end
 

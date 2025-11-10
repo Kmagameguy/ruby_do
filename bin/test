@@ -2,4 +2,3 @@
 
 puts "== Running tests =="
 system("bundle exec rake test") || abort
-

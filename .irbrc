@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require "bundler"
 Bundler.require
 require_relative "./lib/to_do"
 
-TODOS= ::ToDo::Menu.open!
+TODOS = ::ToDo::Menu.open!
 
