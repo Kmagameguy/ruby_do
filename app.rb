@@ -1,0 +1,11 @@
+# frozen_string_literal: true
+
+require "fileutils"
+require "json"
+require "logger"
+require "sequel"
+require "time"
+
+require_relative "lib/database"
+require_relative "lib/models"
+require_relative "lib/services"

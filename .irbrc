@@ -2,7 +2,6 @@
 
 require "bundler"
 Bundler.require
-require_relative "./lib/to_do"
+require_relative "app"
 
-TODOS = ::ToDo::Menu.open!
-
+TASK_MANAGER = TaskManager.open!

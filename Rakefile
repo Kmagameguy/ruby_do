@@ -13,3 +13,4 @@ Rake::TestTask.new do |t|
   t.verbose = true
 end
 
+Dir.glob("lib/tasks/*.rake").each { |file| load file }
