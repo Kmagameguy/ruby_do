@@ -17,6 +17,10 @@ Bundler/GemVersion:
 Lint/ConstantResolution:
   Enabled: false
 
+Metrics/ClassLength:
+  Exclude:
+    - test/**/*
+
 Metrics/BlockLength:
   Exclude:
     - lib/tasks/db.rake
