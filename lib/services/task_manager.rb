@@ -10,19 +10,35 @@ class TaskManager
     print
   end
 
-  def all_tasks
-    @tasks
-  end
-
   def create!(content:)
     all_tasks << Task.new(content: content)
     print
   end
 
   def destroy!(index)
-    return unless (0..all.size).cover?(index - 1)
+    return unless valid_index?
 
     all.delete_at(index - 1)
+    print
+  end
+
+  def complete!(index)
+    raise(ArgumentError, "Invalid index: #{index}") unless valid_index?(index)
+
+    unless (task = all_tasks[index - 1]).completed?
+      task.mark_complete!
+    end
+
+    print
+  end
+
+  def incomplete!(index)
+    raise(ArgumentError, "Invalid index: #{index}") unless valid_index?(index)
+
+    if (task = all_tasks[index - 1]).completed?
+      task.mark_incomplete!
+    end
+
     print
   end
 
@@ -48,5 +64,13 @@ class TaskManager
 
   def load_tasks!
     @tasks = Task.all
+  end
+
+  def all_tasks
+    @tasks
+  end
+
+  def valid_index?(index)
+    (0..all_tasks.count).cover?(index - 1)
   end
 end
