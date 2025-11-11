@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class TaskTest < ::Minitest::Test
+class TaskTest < Minitest::Test
   let(:content) { "This is a test" }
   let(:humanized_date_pattern) { "%b %e, %Y @ %l:%M%P" }
   let(:subject) { ::Task }

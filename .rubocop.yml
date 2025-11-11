@@ -22,7 +22,7 @@ Metrics/BlockLength:
     - lib/tasks/db.rake
     - db/migrations/*
 
-Style/Style/ClassAndModuleChildren:
+Style/ClassAndModuleChildren:
   Enabled: false
 
 Style/Copyright:
@@ -39,7 +39,7 @@ Style/FrozenStringLiteralComment:
     - bin/*
     - Gemfile
 
-Style/Style/TopLevelMethodDefinition:
+Style/TopLevelMethodDefinition:
   Exclude:
     - bin/*
 

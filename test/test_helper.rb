@@ -15,7 +15,7 @@ require_relative "../lib/database"
 
 Bundler.setup(:default, :test)
 
-Sequel.extension :migration
+Sequel.extension(:migration)
 Sequel::Migrator.run(DB, "db/migrations")
 
 require_relative "../app"
