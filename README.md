@@ -9,6 +9,7 @@ A simple command-line to-do list.
 
 # Installation
 1. Run `bin/setup`
+1. Run `bundle exec rake db:migrate`
 1. (Optional) Run `bundle exec rake db:seed` to populate the DB with some starter data
 
 # Usage
