@@ -9,5 +9,5 @@ if ENV.fetch("RUBY_ENV", "development") == "test"
 else
   FileUtils.mkdir_p("db")
   DB = Sequel.sqlite("db/development.db", foreign_keys: true, synchronous: :normal, temp_store: :memory, timeout: 5_000)
-  DB.loggers << Logger.new($stdout)
+  DB.loggers << Logger.new($stdout) if ENV["LOG_STDOUT"] == "true"
 end
