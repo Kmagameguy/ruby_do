@@ -13,7 +13,7 @@ class TaskManager
   def destroy!(*indexes)
     indexes = Array(indexes)
 
-    indexes.sort.reverse.each do |index|
+    indexes.sort.reverse_each do |index|
       next unless valid_index?(index)
 
       all_tasks.delete_at(index - 1)
@@ -50,10 +50,15 @@ class TaskManager
     print
   end
 
-  def print
+  def print(show_details: false)
     entries =
       all_tasks.map.with_index do |entry, index|
-        "#{index + 1}. #{entry}"
+        line = "#{index + 1}."
+        line = "#{line} #{entry}"
+        line = "#{line}\n" if show_details
+        line = "#{line}  - Created: #{entry.date_created}" if show_details
+        line = "#{line}\n  - Completed: #{entry.date_completed}" if show_details && entry.date_completed
+        line
       end
 
     puts(entries)

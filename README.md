@@ -14,10 +14,9 @@ A simple command-line to-do list.
 # Usage
 1. Run `bin/console`
 1. Work with the to-do list through the `TASK_MANAGER` constant:
-    - List tasks: `TASK_MANAGER.show`, `TASK_MANAGER.list`, `TASK_MANAGER.ls`
-    - Mark task complete: `TASK_MANAGER.all.first.mark_complete!`
-    - Mark task incomplete: `TASK_MANAGER.all.first.mark_incomplete!`
-    - See when task was created: `TASK_MANAGER.all.first.created_at`
-    - See when task was completed: `TASK_MANAGER.all.first.completed_at`
+    - List tasks: `TASK_MANAGER.show`, `TASK_MANAGER.list`, `TASK_MANAGER.ls`, `TASK_MANAGER.print` `TASK_MANAGER.tasks`, `TASK_MANAGER.to_s`
+    - Mark task complete: `TASK_MANAGER.complete!(indexes)`
+    - Mark task incomplete: `TASK_MANAGER.incomplete!(indexes)`
+    - See when tasks were created/completed: `TASK_MANAGER.print(show_details: true)`
     - Create a task: `TASK_MANAGER.create!(content: "Your Task")`
-    - Delete a task: `TASK_MANAGER.destroy!(task_index)`
+    - Delete a task: `TASK_MANAGER.destroy!(indexes)`
