@@ -16,7 +16,7 @@ class TaskManager
     indexes.sort.reverse_each do |index|
       next unless valid_index?(index)
 
-      all_tasks.delete_at(index - 1)
+      all_tasks[index - 1].delete
     end
 
     print
