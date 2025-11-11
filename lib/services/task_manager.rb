@@ -10,28 +10,41 @@ class TaskManager
     print
   end
 
-  def destroy!(index)
-    raise(ArgumentError, "Invalid index: #{index}") unless valid_index?(index)
+  def destroy!(*indexes)
+    indexes = Array(indexes)
 
-    all_tasks.delete_at(index - 1)
-    print
-  end
+    indexes.sort.reverse.each do |index|
+      next unless valid_index?(index)
 
-  def complete!(index)
-    raise(ArgumentError, "Invalid index: #{index}") unless valid_index?(index)
-
-    unless (task = all_tasks[index - 1]).completed?
-      task.mark_complete!
+      all_tasks.delete_at(index - 1)
     end
 
     print
   end
 
-  def incomplete!(index)
-    raise(ArgumentError, "Invalid index: #{index}") unless valid_index?(index)
+  def complete!(*indexes)
+    indexes = Array(indexes)
 
-    if (task = all_tasks[index - 1]).completed?
-      task.mark_incomplete!
+    indexes.each do |index|
+      next unless valid_index?(index)
+
+      unless (task = all_tasks[index - 1]).completed?
+        task.mark_complete!
+      end
+    end
+
+    print
+  end
+
+  def incomplete!(*indexes)
+    indexes = Array(indexes)
+
+    indexes.each do |index|
+      next unless valid_index?(index)
+
+      if (task = all_tasks[index - 1]).completed?
+        task.mark_incomplete!
+      end
     end
 
     print
