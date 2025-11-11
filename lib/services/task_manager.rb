@@ -6,7 +6,7 @@ class TaskManager
   end
 
   def create!(content:)
-    all_tasks << Task.new(content: content)
+    all_tasks << Task.create(content: content)
     print
   end
 
