@@ -70,7 +70,9 @@ class TaskManager
   alias to_s print
 
   def [](index)
-    all_tasks[index]
+    return unless valid_index?(index)
+
+    all_tasks[index - 1]
   end
 
   private
