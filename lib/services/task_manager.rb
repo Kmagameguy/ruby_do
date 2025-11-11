@@ -76,7 +76,7 @@ class TaskManager
   private
 
   def all_tasks
-    @all_tasks ||= Task.all
+    Task.all
   end
 
   def valid_index?(index)
