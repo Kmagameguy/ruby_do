@@ -1,5 +1,4 @@
 #!/bin/sh
 
 echo "== Starting IRB =="
-irb
-
+RUBY_ENV="development" irb
