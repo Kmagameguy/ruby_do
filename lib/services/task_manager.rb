@@ -5,20 +5,15 @@ class TaskManager
     new
   end
 
-  def initialize
-    load_tasks!
-    print
-  end
-
   def create!(content:)
     all_tasks << Task.new(content: content)
     print
   end
 
   def destroy!(index)
-    return unless valid_index?
+    raise(ArgumentError, "Invalid index: #{index}") unless valid_index?(index)
 
-    all.delete_at(index - 1)
+    all_tasks.delete_at(index - 1)
     print
   end
 
@@ -62,12 +57,8 @@ class TaskManager
 
   private
 
-  def load_tasks!
-    @tasks = Task.all
-  end
-
   def all_tasks
-    @tasks
+    @all_tasks ||= Task.all
   end
 
   def valid_index?(index)
