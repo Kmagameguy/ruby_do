@@ -76,7 +76,7 @@ class TaskManagerTest < Minitest::Test
     end
 
     it "can mark multiple tasks complete at once" do
-      @task_manager.complete!(1,2)
+      @task_manager.complete!(1, 2)
 
       assert_predicate(@task_manager.__send__(:all_tasks).first, :completed?)
       assert_predicate(@task_manager.__send__(:all_tasks)[1], :completed?)
@@ -116,7 +116,7 @@ class TaskManagerTest < Minitest::Test
         assert_predicate(task.reload, :completed?)
       end
 
-      @task_manager.incomplete!(1,2)
+      @task_manager.incomplete!(1, 2)
 
       tasks.each do |task|
         refute_predicate(task.reload, :completed?)
