@@ -39,6 +39,12 @@ Style/FrozenStringLiteralComment:
     - bin/*
     - Gemfile
 
+Style/MissingElse:
+  Enabled: false
+
+Style/RequireOrder:
+  Enabled: false
+
 Style/TopLevelMethodDefinition:
   Exclude:
     - bin/*
