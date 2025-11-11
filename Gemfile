@@ -1,6 +1,8 @@
 source "https://rubygems.org"
 
 gem "dotenv"
+# Temporarily add rdoc to silence annoying irb deprecation warning
+gem "rdoc"
 gem "sequel"
 gem "sqlite3"
 
