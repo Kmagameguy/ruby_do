@@ -1,22 +1,19 @@
 # frozen_string_literal: true
 
-require "bundler"
 Bundler.require(:test)
+Bundler.setup(:default, :test)
 
-require "dotenv/load"
-require "fileutils"
-require "json"
-require "logger"
 require "minitest/autorun"
 require "minitest/spec"
 require "mocha/minitest"
+require "rake"
+
+Rake.application.init
+Rake.application.load_rakefile
 
 require_relative "../lib/database"
 
-Bundler.setup(:default, :test)
-
-Sequel.extension(:migration)
-Sequel::Migrator.run(DB, "db/migrations")
+Rake::Task["db:migrate"].invoke
 
 require_relative "../app"
 

@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require "bundler"
+Bundler.require
+require "dotenv/load"
 require "fileutils"
 require "json"
 require "logger"
