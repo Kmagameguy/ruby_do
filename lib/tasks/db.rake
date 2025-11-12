@@ -48,7 +48,9 @@ namespace :db do
   desc "Rebuild database (Drop and recreate)"
   task :rebuild do
     puts "Rebuilding database..."
-    Dir.glob("db/*.db").each { |file| File.delete(file) }
+    Dir.glob("db/*.db*").each { |file| File.delete(file) }
+    Object.__send__(:remove_const, :DB) if defined?(DB)
+    load File.expand_path("../database.rb", __dir__)
     Rake::Task["db:migrate"].invoke
     puts "Database rebuilt!"
   end
