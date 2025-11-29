@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 gem "dotenv"
-# Temporarily add rdoc to silence annoying irb deprecation warning
+# Add logger & rdoc to silence annoying irb deprecation warnings
 gem "logger"
 gem "rdoc"
 gem "sequel"
