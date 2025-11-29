@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "bundler"
-Bundler.require
+Bundler.require(:default)
 require "dotenv/load"
 require "fileutils"
 require "json"

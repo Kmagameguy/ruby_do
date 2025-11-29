@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require "bundler"
-Bundler.require
+require "bundler/setup"
+Bundler.require(:default, :test)
 require "rake/testtask"
 
 desc "Default: run tests"

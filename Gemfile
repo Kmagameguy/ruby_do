@@ -6,7 +6,7 @@ gem "rdoc"
 gem "sequel"
 gem "sqlite3"
 
-group :development, :test do
+group :development do
   gem "logger"
   gem "rubocop"
   gem "rubocop-minitest"
