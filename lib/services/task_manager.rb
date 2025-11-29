@@ -5,45 +5,45 @@ class TaskManager
     new
   end
 
-  def create!(content:)
-    all_tasks << Task.create(content: content)
+  def add!(content:)
+    all_tasks << Task.add!(content: content)
     print
   end
 
-  def destroy!(*indexes)
+  def remove!(*indexes)
     indexes = Array(indexes)
 
     indexes.sort.reverse_each do |index|
       next unless valid_index?(index)
 
-      all_tasks[index - 1].delete
+      all_tasks[index - 1].remove!
     end
 
     print
   end
 
-  def complete!(*indexes)
+  def done!(*indexes)
     indexes = Array(indexes)
 
     indexes.each do |index|
       next unless valid_index?(index)
 
-      unless (task = all_tasks[index - 1]).completed?
-        task.mark_complete!
+      unless (task = all_tasks[index - 1]).done?
+        task.done!
       end
     end
 
     print
   end
 
-  def incomplete!(*indexes)
+  def not_done!(*indexes)
     indexes = Array(indexes)
 
     indexes.each do |index|
       next unless valid_index?(index)
 
-      if (task = all_tasks[index - 1]).completed?
-        task.mark_incomplete!
+      if (task = all_tasks[index - 1]).done?
+        task.not_done!
       end
     end
 

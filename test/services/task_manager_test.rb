@@ -13,38 +13,38 @@ class TaskManagerTest < Minitest::Test
     end
   end
 
-  describe "#create!" do
+  describe "#add!" do
     before { @task_manager = subject.open! }
 
-    it "creates a new task" do
+    it "adds a new task" do
       before_count = Task.count
-      @task_manager.create!(content: "test task")
+      @task_manager.add!(content: "test task")
       after_count = Task.count
 
       assert_equal before_count + 1, after_count
     end
   end
 
-  describe "#destroy!" do
+  describe "#remove!" do
     before do
       @task_manager = subject.open!
       ["test task 1", "test task 2"].each do |task|
-        Task.create(content: task)
+        Task.add!(content: task)
       end
     end
 
-    it "destroys the selected task" do
+    it "removes the selected task" do
       before_count = Task.count
-      @task_manager.destroy!(2)
+      @task_manager.remove!(2)
       after_count = Task.count
 
       assert_equal before_count - 1, after_count
       assert_equal after_count, @task_manager.__send__(:all_tasks).count
     end
 
-    it "can destroy many tasks at once" do
+    it "can remove many tasks at once" do
       before_count = Task.count
-      @task_manager.destroy!(1, 2)
+      @task_manager.remove!(1, 2)
       after_count = Task.count
 
       assert_equal before_count - 2, after_count
@@ -53,7 +53,7 @@ class TaskManagerTest < Minitest::Test
 
     it "skips invalid indexes" do
       before_count = Task.count
-      @task_manager.destroy!(9_999_999)
+      @task_manager.remove!(9_999_999)
       after_count = Task.count
 
       assert_equal before_count, after_count
@@ -61,7 +61,7 @@ class TaskManagerTest < Minitest::Test
     end
   end
 
-  describe "#complete!" do
+  describe "#done!" do
     before do
       @task_manager = subject.open!
       ["test task 1", "test task 2"].each do |task|
@@ -70,64 +70,64 @@ class TaskManagerTest < Minitest::Test
     end
 
     it "marks the selected task complete" do
-      @task_manager.complete!(1)
+      @task_manager.done!(1)
 
-      assert_predicate(@task_manager.__send__(:all_tasks).first, :completed?)
+      assert_predicate(@task_manager.__send__(:all_tasks).first, :done?)
     end
 
     it "can mark multiple tasks complete at once" do
-      @task_manager.complete!(1, 2)
+      @task_manager.done!(1, 2)
 
-      assert_predicate(@task_manager.__send__(:all_tasks).first, :completed?)
-      assert_predicate(@task_manager.__send__(:all_tasks)[1], :completed?)
+      assert_predicate(@task_manager.__send__(:all_tasks).first, :done?)
+      assert_predicate(@task_manager.__send__(:all_tasks)[1], :done?)
     end
 
     it "skips invalid indexes" do
-      @task_manager.complete!(9_999_999)
+      @task_manager.done!(9_999_999)
 
       @task_manager.__send__(:all_tasks).each do |task|
-        refute_predicate(task, :completed?)
+        refute_predicate(task, :done?)
       end
     end
   end
 
-  describe "#incomplete!" do
+  describe "#not_done!" do
     before do
       @task_manager = subject.open!
       ["test task 1", "test task 2"].each do |task|
-        Task.create(content: task).mark_complete!
+        Task.create(content: task).done!
       end
     end
 
     it "can mark a completed task incomplete again" do
       task = @task_manager.__send__(:all_tasks).first
 
-      assert_predicate(task, :completed?)
+      assert_predicate(task, :done?)
 
-      @task_manager.incomplete!(1)
+      @task_manager.not_done!(1)
 
-      refute_predicate(task.reload, :completed?)
+      refute_predicate(task.reload, :done?)
     end
 
     it "can mark many completed tasks incomplete again" do
       tasks = @task_manager.__send__(:all_tasks)
 
       tasks.each do |task|
-        assert_predicate(task.reload, :completed?)
+        assert_predicate(task.reload, :done?)
       end
 
-      @task_manager.incomplete!(1, 2)
+      @task_manager.not_done!(1, 2)
 
       tasks.each do |task|
-        refute_predicate(task.reload, :completed?)
+        refute_predicate(task.reload, :done?)
       end
     end
 
     it "skips invalid indexes" do
-      @task_manager.incomplete!(9_999_999)
+      @task_manager.not_done!(9_999_999)
 
       @task_manager.__send__(:all_tasks).each do |task|
-        assert_predicate(task.reload, :completed?)
+        assert_predicate(task.reload, :done?)
       end
     end
   end

@@ -16,8 +16,8 @@ A simple command-line to-do list.
 1. Run `bin/console`
 1. Work with the to-do list through the `RUBY_DO` constant:
     - List tasks: `RUBY_DO.show`, `RUBY_DO.list`, `RUBY_DO.ls`, `RUBY_DO.print` `RUBY_DO.tasks`, `RUBY_DO.to_s`
-    - Mark task complete: `RUBY_DO.complete!(indexes)`
-    - Mark task incomplete: `RUBY_DO.incomplete!(indexes)`
+    - Mark task complete: `RUBY_DO.done!(indexes)`
+    - Mark task incomplete: `RUBY_DO.not_done!(indexes)`
     - See when tasks were created/completed: `RUBY_DO.print(show_details: true)`
-    - Create a task: `RUBY_DO.create!(content: "Your Task")`
-    - Delete a task: `RUBY_DO.destroy!(indexes)`
+    - Create a task: `RUBY_DO.add!(content: "Your Task")`
+    - Delete a task: `RUBY_DO.remove!(indexes)`
