@@ -56,35 +56,35 @@ class TaskTest < Minitest::Test
     end
   end
 
-  describe "#mark_complete!" do
+  describe "#done!" do
     it "sets a date_completed timestamp" do
-      @task.mark_complete!
+      @task.done!
 
       refute_nil @task.date_completed
     end
   end
 
-  describe "#mark_incomplete!" do
+  describe "#not_done!" do
     it "removes the date_completed timestamp" do
-      @task.mark_complete!
+      @task.done!
 
       refute_nil @task.date_completed
 
-      @task.mark_incomplete!
+      @task.not_done!
 
       assert_nil @task.date_completed
     end
   end
 
-  describe "#completed?" do
+  describe "#done?" do
     it "returns true if a date_completed timestamp is present" do
-      @task.mark_complete!
+      @task.done!
 
-      assert_predicate(@task, :completed?)
+      assert_predicate(@task, :done?)
     end
 
     it "returns false if a date_completed timestamp is not present" do
-      refute_predicate(@task, :completed?)
+      refute_predicate(@task, :done?)
     end
   end
 
@@ -96,7 +96,7 @@ class TaskTest < Minitest::Test
     end
 
     context "when the task is complete" do
-      before { @task.mark_complete! }
+      before { @task.done! }
 
       it "formats the task with a filled-in checkbox" do
         assert_equal "[x] #{content}", @task.to_s

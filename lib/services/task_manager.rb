@@ -5,45 +5,39 @@ class TaskManager
     new
   end
 
-  def create!(content:)
-    all_tasks << Task.create(content: content)
+  def add!(content:)
+    all_tasks << Task.add!(content: content)
     print
   end
 
-  def destroy!(*indexes)
-    indexes = Array(indexes)
-
-    indexes.sort.reverse_each do |index|
+  def remove!(*indexes)
+    make_array(indexes).sort.reverse_each do |index|
       next unless valid_index?(index)
 
-      all_tasks[index - 1].delete
+      all_tasks[index - 1].remove!
     end
 
     print
   end
 
-  def complete!(*indexes)
-    indexes = Array(indexes)
-
-    indexes.each do |index|
+  def done!(*indexes)
+    make_array(indexes).each do |index|
       next unless valid_index?(index)
 
-      unless (task = all_tasks[index - 1]).completed?
-        task.mark_complete!
+      unless (task = all_tasks[index - 1]).done?
+        task.done!
       end
     end
 
     print
   end
 
-  def incomplete!(*indexes)
-    indexes = Array(indexes)
-
-    indexes.each do |index|
+  def not_done!(*indexes)
+    make_array(indexes).each do |index|
       next unless valid_index?(index)
 
-      if (task = all_tasks[index - 1]).completed?
-        task.mark_incomplete!
+      if (task = all_tasks[index - 1]).done?
+        task.not_done!
       end
     end
 
@@ -83,5 +77,9 @@ class TaskManager
 
   def valid_index?(index)
     (0..all_tasks.count).cover?(index - 1)
+  end
+
+  def make_array(opts)
+    opts.flat_map { |i| i.is_a?(Array) ? i : [i] }
   end
 end

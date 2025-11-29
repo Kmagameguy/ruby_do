@@ -1,15 +1,21 @@
 # frozen_string_literal: true
 
 class Task < Sequel::Model
-  def mark_complete!
+  class << self
+    alias add! create
+  end
+
+  alias remove! delete
+
+  def done!
     update(completed_at: Time.now)
   end
 
-  def mark_incomplete!
+  def not_done!
     update(completed_at: nil)
   end
 
-  def completed?
+  def done?
     !!completed_at
   end
 
@@ -26,7 +32,7 @@ class Task < Sequel::Model
   end
 
   def to_s
-    "#{completed? ? '[x]' : '[ ]'} #{content}"
+    "#{done? ? '[x]' : '[ ]'} #{content}"
   end
 
   private
