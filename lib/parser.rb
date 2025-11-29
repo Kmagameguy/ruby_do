@@ -94,7 +94,7 @@ module RubyDo
     def setup_new_task_options(opts)
       opts.on("--add=TASK_CONTENT", "Add a new task") do |task_content|
         options[:action] = :add
-        options[:task_description] = task_content
+        options[:task_content] = task_content
       end
     end
 
