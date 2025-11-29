@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+root_dir = File.expand_path("..", __dir__)
+Dir.chdir(root_dir)
+
+require_relative "../app"
+require_relative "../lib/parser"
+
+RubyDo::Parser.parse!

@@ -11,9 +11,7 @@ class TaskManager
   end
 
   def remove!(*indexes)
-    indexes = Array(indexes)
-
-    indexes.sort.reverse_each do |index|
+    make_array(indexes).sort.reverse_each do |index|
       next unless valid_index?(index)
 
       all_tasks[index - 1].remove!
@@ -23,9 +21,7 @@ class TaskManager
   end
 
   def done!(*indexes)
-    indexes = Array(indexes)
-
-    indexes.each do |index|
+    make_array(indexes).each do |index|
       next unless valid_index?(index)
 
       unless (task = all_tasks[index - 1]).done?
@@ -37,9 +33,7 @@ class TaskManager
   end
 
   def not_done!(*indexes)
-    indexes = Array(indexes)
-
-    indexes.each do |index|
+    make_array(indexes).each do |index|
       next unless valid_index?(index)
 
       if (task = all_tasks[index - 1]).done?
@@ -83,5 +77,9 @@ class TaskManager
 
   def valid_index?(index)
     (0..all_tasks.count).cover?(index - 1)
+  end
+
+  def make_array(opts)
+    opts.flat_map { |i| i.is_a?(Array) ? i : [i] }
   end
 end
