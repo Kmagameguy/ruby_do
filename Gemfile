@@ -2,12 +2,12 @@ source "https://rubygems.org"
 
 gem "dotenv"
 # Temporarily add rdoc to silence annoying irb deprecation warning
+gem "logger"
 gem "rdoc"
 gem "sequel"
 gem "sqlite3"
 
 group :development do
-  gem "logger"
   gem "rubocop"
   gem "rubocop-minitest"
   gem "rubocop-performance"
