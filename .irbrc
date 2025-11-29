@@ -2,4 +2,4 @@
 
 require_relative "app"
 
-TASK_MANAGER = TaskManager.open!
+RUBY_DO = TaskManager.open!
