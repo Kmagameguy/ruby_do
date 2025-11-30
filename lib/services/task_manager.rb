@@ -20,6 +20,12 @@ class TaskManager
     print
   end
 
+  def remove_all!
+    DB[:tasks].delete
+
+    puts("All tasks deleted!")
+  end
+
   def done!(*indexes)
     make_array(indexes).each do |index|
       next unless valid_index?(index)
