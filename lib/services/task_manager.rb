@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 class TaskManager
-  def self.open!
+  def self.open
     new
   end
 
-  def add!(content:)
-    all_tasks << Task.add!(content: content)
+  def add(content:)
+    all_tasks << Task.add(content: content)
     print
   end
 
@@ -26,24 +26,24 @@ class TaskManager
     puts("All tasks deleted!")
   end
 
-  def done!(*indexes)
+  def done(*indexes)
     make_array(indexes).each do |index|
       next unless valid_index?(index)
 
       unless (task = all_tasks[index - 1]).done?
-        task.done!
+        task.done
       end
     end
 
     print
   end
 
-  def not_done!(*indexes)
+  def not_done(*indexes)
     make_array(indexes).each do |index|
       next unless valid_index?(index)
 
       if (task = all_tasks[index - 1]).done?
-        task.not_done!
+        task.not_done
       end
     end
 

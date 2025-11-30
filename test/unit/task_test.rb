@@ -7,7 +7,7 @@ class TaskTest < Minitest::Test
   let(:humanized_date_pattern) { "%b %e, %Y @ %l:%M%P" }
   let(:subject) { ::Task }
 
-  before { @task = subject.create(content: content) }
+  before { @task = subject.add(content: content) }
 
   describe ".initialize" do
     it "creates a new task with valid arguments" do
@@ -56,21 +56,21 @@ class TaskTest < Minitest::Test
     end
   end
 
-  describe "#done!" do
+  describe "#done" do
     it "sets a date_completed timestamp" do
-      @task.done!
+      @task.done
 
       refute_nil @task.date_completed
     end
   end
 
-  describe "#not_done!" do
+  describe "#not_done" do
     it "removes the date_completed timestamp" do
-      @task.done!
+      @task.done
 
       refute_nil @task.date_completed
 
-      @task.not_done!
+      @task.not_done
 
       assert_nil @task.date_completed
     end
@@ -78,7 +78,7 @@ class TaskTest < Minitest::Test
 
   describe "#done?" do
     it "returns true if a date_completed timestamp is present" do
-      @task.done!
+      @task.done
 
       assert_predicate(@task, :done?)
     end
@@ -96,7 +96,7 @@ class TaskTest < Minitest::Test
     end
 
     context "when the task is complete" do
-      before { @task.done! }
+      before { @task.done }
 
       it "formats the task with a filled-in checkbox" do
         assert_equal "[x] #{content}", @task.to_s

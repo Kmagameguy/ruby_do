@@ -10,7 +10,7 @@ module RubyDo
 
     def initialize
       @options = {}
-      @task_manager = TaskManager.open!
+      @task_manager = TaskManager.open
     end
 
     def parse!
@@ -26,9 +26,9 @@ module RubyDo
     def dispatch_action!
       case action
       when :print      then show_tasks
-      when :done       then mark_task_done!
-      when :not_done   then mark_task_not_done!
-      when :add        then add_task!
+      when :done       then mark_task_done
+      when :not_done   then mark_task_not_done
+      when :add        then add_task
       when :remove     then remove_task!
       when :remove_all then remove_all_tasks!
       end
@@ -42,16 +42,16 @@ module RubyDo
       task_manager.print(show_details: options[:show_details])
     end
 
-    def mark_task_done!
-      task_manager.done!(options[:task_indexes])
+    def mark_task_done
+      task_manager.done(options[:task_indexes])
     end
 
-    def mark_task_not_done!
-      task_manager.not_done!(options[:task_indexes])
+    def mark_task_not_done
+      task_manager.not_done(options[:task_indexes])
     end
 
-    def add_task!
-      task_manager.add!(content: options[:task_content])
+    def add_task
+      task_manager.add(content: options[:task_content])
     end
 
     def remove_task!
