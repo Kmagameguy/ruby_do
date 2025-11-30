@@ -148,4 +148,33 @@ class TaskManagerTest < Minitest::Test
       assert_nil @task_manager[9_999_999]
     end
   end
+
+  describe "private methods" do
+    describe "#formatted_tasks" do
+      before do
+        @task_manager = subject.open!
+        ["test task 1", "test task 2"].each do |task|
+          Task.create(content: task)
+        end
+      end
+
+      it "creates an indexed, multi-line string of all tasks" do
+        expected_content = ["1. [ ] test task 1", "2. [ ] test task 2"].join("\n")
+
+        assert_equal expected_content, @task_manager.__send__(:formatted_tasks)
+      end
+
+      it "shows extended details when show_details is true" do
+        content = @task_manager.__send__(:formatted_tasks, show_details: true)
+
+        assert_includes content, "Created:"
+      end
+
+      it "shows 'No tasks found!' when all_tasks is empty" do
+        DB[:tasks].delete
+
+        assert_equal "No tasks found!", @task_manager.__send__(:formatted_tasks, show_details: true)
+      end
+    end
+  end
 end

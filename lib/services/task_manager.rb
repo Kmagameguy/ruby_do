@@ -45,17 +45,7 @@ class TaskManager
   end
 
   def print(show_details: false)
-    entries =
-      all_tasks.map.with_index do |entry, index|
-        line = "#{index + 1}."
-        line = "#{line} #{entry}"
-        line = "#{line}\n" if show_details
-        line = "#{line}  - Created: #{entry.date_created}" if show_details
-        line = "#{line}\n  - Completed: #{entry.date_completed}" if show_details && entry.date_completed
-        line
-      end
-
-    puts(entries)
+    puts(formatted_tasks(show_details: show_details))
   end
   alias show print
   alias list print
@@ -70,6 +60,26 @@ class TaskManager
   end
 
   private
+
+  def formatted_tasks(show_details: false)
+    tasks =
+      all_tasks.map.with_index do |entry, index|
+        line = "#{index + 1}."
+        line = "#{line} #{entry}"
+        line = "#{line}#{format_task_details(entry)}" if entry && show_details
+
+        line
+      end
+
+    tasks.empty? ? "No tasks found!" : tasks.join("\n")
+  end
+
+  def format_task_details(task)
+    detail = "\n"
+    detail = "#{detail}  - Created: #{task.date_created}"
+    detail = "#{detail}\n  - Completed: #{task.date_completed}" if task.done?
+    detail
+  end
 
   def all_tasks
     Task.all
