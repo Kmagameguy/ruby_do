@@ -61,6 +61,24 @@ class TaskManagerTest < Minitest::Test
     end
   end
 
+  describe "#remove_all!" do
+    before do
+      @task_manager = subject.open!
+      ["test task 1", "test task 2"].each do |task|
+        Task.add!(content: task)
+      end
+    end
+
+    it "deletes all tasks from the database" do
+      before_count = Task.count
+      @task_manager.remove_all!
+      after_count = Task.count
+
+      assert_predicate(before_count, :positive?)
+      assert_predicate(after_count, :zero?)
+    end
+  end
+
   describe "#done!" do
     before do
       @task_manager = subject.open!

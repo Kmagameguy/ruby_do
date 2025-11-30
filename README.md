@@ -20,7 +20,8 @@ A simple command-line to-do list.
 - Mark tasks done by their index in the list: `ruby_do --done 1,2`
 - Mark tasks not done by their index in the list: `ruby_do --not-done 1,2`
 - Add a task: `ruby_do --add TASK_CONTENT`
-- Remove a task: `ruby_do --remove TASK_CONTENT`
+- Remove a task (warning: this is destructive!!): `ruby_do --remove TASK_CONTENT`
+- Remove all tasks (warning: this is destructive!!): `ruby_do --remove-all`
 
 ## From the Ruby Command Line
 1. Run `bin/console`
@@ -30,4 +31,5 @@ A simple command-line to-do list.
     - Mark tasks done by their index in the list: `RUBY_DO.done!(1,2)`
     - Mark tasks not done by their index in the list: `RUBY_DO.not_done!(1,2)`
     - Add a task: `RUBY_DO.add!(content: "Your Task")`
-    - Remove a task: `RUBY_DO.remove!(2,3)`
+    - Remove a task (warning: this is destructive!!): `RUBY_DO.remove!(2,3)`
+    - Remove all tasks (warning: this is destructive!!): `RUBY_DO.remove_all!`

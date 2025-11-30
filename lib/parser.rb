@@ -24,15 +24,18 @@ module RubyDo
     attr_reader :task_manager
 
     def dispatch_action!
-      action = options[:action] || :print
-
       case action
-      when :print    then show_tasks
-      when :done     then mark_task_done!
-      when :not_done then mark_task_not_done!
-      when :add      then add_task!
-      when :remove   then remove_task!
+      when :print      then show_tasks
+      when :done       then mark_task_done!
+      when :not_done   then mark_task_not_done!
+      when :add        then add_task!
+      when :remove     then remove_task!
+      when :remove_all then remove_all_tasks!
       end
+    end
+
+    def action
+      options[:action] || :print
     end
 
     def show_tasks
@@ -53,6 +56,10 @@ module RubyDo
 
     def remove_task!
       task_manager.remove!(options[:task_indexes])
+    end
+
+    def remove_all_tasks!
+      task_manager.remove_all!
     end
 
     def input
@@ -102,6 +109,10 @@ module RubyDo
       opts.on("--remove=TASK_INDEX(ES)", "Remove task(s) by index (comma-separated)") do |task_indexes|
         options[:action] = :remove
         options[:task_indexes] = extract_integer_list(task_indexes)
+      end
+
+      opts.on("--remove-all", "Remove all tasks") do
+        options[:action] = :remove_all
       end
     end
 
