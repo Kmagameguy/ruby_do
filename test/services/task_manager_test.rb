@@ -7,18 +7,18 @@ class TaskManagerTest < Minitest::Test
 
   before { DB[:tasks].delete }
 
-  describe ".open!" do
+  describe ".open" do
     it "creates a new TaskManager instance" do
-      assert_kind_of(TaskManager, subject.open!)
+      assert_kind_of(TaskManager, subject.open)
     end
   end
 
-  describe "#add!" do
-    before { @task_manager = subject.open! }
+  describe "#add" do
+    before { @task_manager = subject.open }
 
     it "adds a new task" do
       before_count = Task.count
-      @task_manager.add!(content: "test task")
+      @task_manager.add(content: "test task")
       after_count = Task.count
 
       assert_equal before_count + 1, after_count
@@ -27,9 +27,9 @@ class TaskManagerTest < Minitest::Test
 
   describe "#remove!" do
     before do
-      @task_manager = subject.open!
+      @task_manager = subject.open
       ["test task 1", "test task 2"].each do |task|
-        Task.add!(content: task)
+        Task.add(content: task)
       end
     end
 
@@ -63,9 +63,9 @@ class TaskManagerTest < Minitest::Test
 
   describe "#remove_all!" do
     before do
-      @task_manager = subject.open!
+      @task_manager = subject.open
       ["test task 1", "test task 2"].each do |task|
-        Task.add!(content: task)
+        Task.add(content: task)
       end
     end
 
@@ -79,29 +79,29 @@ class TaskManagerTest < Minitest::Test
     end
   end
 
-  describe "#done!" do
+  describe "#done" do
     before do
-      @task_manager = subject.open!
+      @task_manager = subject.open
       ["test task 1", "test task 2"].each do |task|
-        Task.create(content: task)
+        Task.add(content: task)
       end
     end
 
     it "marks the selected task complete" do
-      @task_manager.done!(1)
+      @task_manager.done(1)
 
       assert_predicate(@task_manager.__send__(:all_tasks).first, :done?)
     end
 
     it "can mark multiple tasks complete at once" do
-      @task_manager.done!(1, 2)
+      @task_manager.done(1, 2)
 
       assert_predicate(@task_manager.__send__(:all_tasks).first, :done?)
       assert_predicate(@task_manager.__send__(:all_tasks)[1], :done?)
     end
 
     it "skips invalid indexes" do
-      @task_manager.done!(9_999_999)
+      @task_manager.done(9_999_999)
 
       @task_manager.__send__(:all_tasks).each do |task|
         refute_predicate(task, :done?)
@@ -109,11 +109,11 @@ class TaskManagerTest < Minitest::Test
     end
   end
 
-  describe "#not_done!" do
+  describe "#not_done" do
     before do
-      @task_manager = subject.open!
+      @task_manager = subject.open
       ["test task 1", "test task 2"].each do |task|
-        Task.create(content: task).done!
+        Task.add(content: task).done
       end
     end
 
@@ -122,7 +122,7 @@ class TaskManagerTest < Minitest::Test
 
       assert_predicate(task, :done?)
 
-      @task_manager.not_done!(1)
+      @task_manager.not_done(1)
 
       refute_predicate(task.reload, :done?)
     end
@@ -134,7 +134,7 @@ class TaskManagerTest < Minitest::Test
         assert_predicate(task.reload, :done?)
       end
 
-      @task_manager.not_done!(1, 2)
+      @task_manager.not_done(1, 2)
 
       tasks.each do |task|
         refute_predicate(task.reload, :done?)
@@ -142,7 +142,7 @@ class TaskManagerTest < Minitest::Test
     end
 
     it "skips invalid indexes" do
-      @task_manager.not_done!(9_999_999)
+      @task_manager.not_done(9_999_999)
 
       @task_manager.__send__(:all_tasks).each do |task|
         assert_predicate(task.reload, :done?)
@@ -152,9 +152,9 @@ class TaskManagerTest < Minitest::Test
 
   describe "#[]" do
     before do
-      @task_manager = subject.open!
+      @task_manager = subject.open
       ["test task 1", "test task 2"].each do |task|
-        Task.create(content: task)
+        Task.add(content: task)
       end
     end
 
@@ -170,9 +170,9 @@ class TaskManagerTest < Minitest::Test
   describe "private methods" do
     describe "#formatted_tasks" do
       before do
-        @task_manager = subject.open!
+        @task_manager = subject.open
         ["test task 1", "test task 2"].each do |task|
-          Task.create(content: task)
+          Task.add(content: task)
         end
       end
 

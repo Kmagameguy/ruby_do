@@ -2,16 +2,16 @@
 
 class Task < Sequel::Model
   class << self
-    alias add! create
+    alias add create
   end
 
   alias remove! delete
 
-  def done!
+  def done
     update(completed_at: Time.now)
   end
 
-  def not_done!
+  def not_done
     update(completed_at: nil)
   end
 

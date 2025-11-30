@@ -28,8 +28,8 @@ A simple command-line to-do list.
 1. Work with the to-do list through the `RUBY_DO` constant:
     - List tasks: `RUBY_DO.show`, `RUBY_DO.list`, `RUBY_DO.ls`, `RUBY_DO.print` `RUBY_DO.tasks`, `RUBY_DO.to_s`
     - See when tasks were created/completed: `RUBY_DO.print(show_details: true)`
-    - Mark tasks done by their index in the list: `RUBY_DO.done!(1,2)`
-    - Mark tasks not done by their index in the list: `RUBY_DO.not_done!(1,2)`
-    - Add a task: `RUBY_DO.add!(content: "Your Task")`
+    - Mark tasks done by their index in the list: `RUBY_DO.done(1,2)`
+    - Mark tasks not done by their index in the list: `RUBY_DO.not_done(1,2)`
+    - Add a task: `RUBY_DO.add(content: "Your Task")`
     - Remove a task (warning: this is destructive!!): `RUBY_DO.remove!(2,3)`
     - Remove all tasks (warning: this is destructive!!): `RUBY_DO.remove_all!`
